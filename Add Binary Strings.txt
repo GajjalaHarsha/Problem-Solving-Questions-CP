@@ -1,0 +1,81 @@
+Add Binary Strings
+Problem Description
+
+Given two binary strings, return their sum (also a binary string).
+Example:
+
+a = "100"
+
+b = "11"
+Return a + b = "111".
+
+
+
+class Solution:
+	# @param A : string
+	# @param B : string
+	# @return a strings
+	def addBinary(self, A, B):
+	    n1=len(A)-1
+	    n2=len(B)-1
+	    res=''
+	    carry=0
+	    while(n1>=0 and n2>=0):
+	        if(A[n1]=='0' and B[n2]=='0'):
+	            if(carry==0):
+	                res+='0'
+	            else:
+	                res+='1'
+	                carry=0
+	        elif(A[n1]=='1' and B[n2]=='0'):
+	            if(carry==0):
+	                res+='1'
+	            else:
+	                res+='0'
+	        elif(A[n1]=='0' and B[n2]=='1'):
+	            if(carry==0):
+	                res+='1'
+	            else:
+	                res+='0'
+	        elif(A[n1]=='1' and B[n2]=='1'):
+	            if(carry==0):
+	                res+='0'
+	                carry=1
+	            else:
+	                res+='1'
+	                carry=1
+	        n1-=1
+	        n2-=1
+	   # print(n1, n2)
+	    if(n1<0 and n2>=0):
+	        while(n2>=0):
+	            if(carry==1 and B[n2]=='0'):
+	                res+='1'
+	                carry=0
+	            elif(carry==0 and B[n2]=='1'):
+	                res+='1'
+	            elif(carry==1 and B[n2]=='1'):
+	                res+='0'
+	                carry=1
+	            elif(carry==0 and B[n2]=='0'):
+	                res+='0'
+	            n2-=1
+	    if(n1>=0 and n2<0):
+	        while(n1>=0):
+	            if(carry==1 and A[n1]=='0'):
+	                res+='1'
+	                carry=0
+	            elif(carry==0 and A[n1]=='1'):
+	                res+='1'
+	            elif(carry==1 and A[n1]=='1'):
+	                res+='0'
+	                carry=1
+	            elif(carry==0 and A[n1]=='0'):
+	                res+='0'
+	            n1-=1
+	    if(n1<0 and n2<0):
+	        if(carry==1):
+	            res+='1'
+	    
+	    return res[::-1]
+	           
