@@ -1,0 +1,92 @@
+Repeat and Missing Number Array
+You are given a read only array of n integers from 1 to n.
+
+Each integer appears exactly once except A which appears twice and B which is missing.
+
+Return A and B.
+
+Note: Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+Note that in your output A should precede B.
+
+Example:
+
+Input:[3 1 2 5 3] 
+
+Output:[3, 4] 
+
+A = 3, B = 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public int[] repeatedNumber(final int[] A) {
+        int missednumbers=0;
+        for(int i=0;i<A.length;i++) {
+            missednumbers=missednumbers^A[i];
+            missednumbers=missednumbers^(i+1);
+        }
+        int bitsetIndex=0;
+        int bitset=0;
+        int mn=missednumbers;
+        while(missednumbers>0) {
+            if((missednumbers & 1<<0 )> 0) {
+                bitsetIndex=bitset;
+                break;
+            }
+            missednumbers/=2;
+            bitset+=1;
+        }
+        int mn1=0;
+        for(int i=0;i<A.length;i++) {
+            if((A[i] & 1<<bitsetIndex)>0) {
+                mn1=mn1^A[i];
+            }
+        }
+        for(int i=1;i<=A.length;i++){
+            if((i & 1<<bitsetIndex)>0) {
+                mn1=mn1^i;
+            }
+        }
+        int mn2=mn1^mn;
+        int res[]=new int[2];
+        for(int i=0;i<A.length;i++) {
+            if(A[i]==mn1) {
+                res[0]=mn1;
+                break;
+            }
+            else if(A[i]==mn2) {
+                res[0]=mn2;
+                break;
+            }
+        }
+        if(res[0]==mn1) {
+            res[1]=mn2;
+        }
+        else {
+            res[1]=mn1;
+        }
+        return res;
+    }
+}
