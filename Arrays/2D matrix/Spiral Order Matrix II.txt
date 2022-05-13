@@ -1,0 +1,95 @@
+Spiral Order Matrix II
+Problem Description
+
+Given an integer A, generate a square matrix filled with elements from 1 to A2 in spiral order.
+
+
+
+Problem Constraints
+1 <= A <= 1000
+
+
+
+Input Format
+First and only argument is integer A
+
+
+Output Format
+Return a 2-D matrix which consists of the elements in spiral order.
+
+
+
+Example Input
+Input 1:
+
+1
+Input 2:
+
+2
+
+
+Example Output
+Output 1:
+
+[ [1] ]
+Output 2:
+
+[ [1, 2], [4, 3] ]
+
+
+Example Explanation
+Explanation 1:
+
+ 
+Only 1 is to be arranged.
+Explanation 2:
+
+1 --> 2
+      |
+      |
+4<--- 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class Solution {
+    public int[][] generateMatrix(int A) {
+        int Arr[][]=new int[A][A];
+        int top=0;
+        int right=Arr[0].length-1;
+        int bottom=Arr.length-1;
+        int left=0, count=1;
+        
+        while(top<=bottom) {
+            for(int j=left;j<=right;j++) {
+                Arr[top][j]=count++;
+            }
+            top+=1;
+            for(int i=top;i<=bottom;i++) {
+                Arr[i][right]=count++;
+            }
+            right-=1;
+            for(int j=right;j>=left;j--) {
+                Arr[bottom][j]=count++;
+            }
+            bottom-=1;
+            for(int i=bottom;i>=top;i--){
+                Arr[i][left]=count++;
+            }
+            left+=1;
+        }
+        return Arr;
+    }
+}
+
